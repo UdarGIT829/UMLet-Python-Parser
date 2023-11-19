@@ -1,0 +1,218 @@
+<?xml version="1.0" ?>
+<diagram program="umlet" version="15.1">
+    <zoom_level>10</zoom_level>
+    <element>
+        <id>UMLClass</id>
+        <coordinates>
+            <x>1159</x>
+            <y>461</y>
+            <w>210</w>
+            <h>260</h>
+        </coordinates>
+        <panel_attributes>style=wordwrap
+&lt;&lt;Class&gt;&gt;
+Existence
+--
+*Attributes*
+- ACTIVE: None
+- INACTIVE: None
+- UNKNOWN: None
+--
+*Functions*
+</panel_attributes>
+        <additional_attributes/>
+    </element>
+    <element>
+        <id>UMLClass</id>
+        <coordinates>
+            <x>893</x>
+            <y>922</y>
+            <w>210</w>
+            <h>260</h>
+        </coordinates>
+        <panel_attributes>style=wordwrap
+&lt;&lt;Class&gt;&gt;
+action
+--
+*Attributes*
+--
+*Functions*
+</panel_attributes>
+        <additional_attributes/>
+    </element>
+    <element>
+        <id>UMLClass</id>
+        <coordinates>
+            <x>201</x>
+            <y>922</y>
+            <w>530</w>
+            <h>260</h>
+        </coordinates>
+        <panel_attributes>style=wordwrap
+&lt;&lt;Class&gt;&gt;
+entity
+{Doc string: The base class for anything with a health bar}
+--
+*Attributes*
+- _HP: int
+- name: str
+--
+*Functions*
+- __init__(self): Any
+={Doc string: Set all of the class attributes except for current HP}
+- getName(self): str
+- setName(self, newName: str): Any
+</panel_attributes>
+        <additional_attributes/>
+    </element>
+    <element>
+        <id>UMLClass</id>
+        <coordinates>
+            <x>0</x>
+            <y>462</y>
+            <w>400</w>
+            <h>260</h>
+        </coordinates>
+        <panel_attributes>style=wordwrap
+&lt;&lt;Class&gt;&gt;
+creature
+{Doc string: Based on thing, this will be any &quot;thing&quot;
+that can take actions}
+--
+*Attributes*
+- monster_type: str
+--
+*Functions*
+- attack(self): action
+</panel_attributes>
+        <additional_attributes/>
+    </element>
+    <element>
+        <id>UMLClass</id>
+        <coordinates>
+            <x>266</x>
+            <y>0</y>
+            <w>400</w>
+            <h>260</h>
+        </coordinates>
+        <panel_attributes>style=wordwrap
+&lt;&lt;Class&gt;&gt;
+thing
+{Doc string: Based on Entity, this will be any Entity
+that has mass, size, and composition}
+--
+*Attributes*
+- object_composition: str
+- mass: int
+- size: int
+- owner: str
+- existence: Existence
+--
+*Functions*
+</panel_attributes>
+        <additional_attributes/>
+    </element>
+    <element>
+        <id>UMLClass</id>
+        <coordinates>
+            <x>808</x>
+            <y>0</y>
+            <w>380</w>
+            <h>260</h>
+        </coordinates>
+        <panel_attributes>style=wordwrap
+&lt;&lt;Class&gt;&gt;
+location
+{Doc string: This class will store data about a
+location, this includes a reference to
+all entities that are in it and what
+location they are at in 3 dimensions.}
+--
+*Attributes*
+- _location_info: str
+- name: str
+- myEntities: ('List', 'entity')
+--
+*Functions*
+- getIntersections(): List
+- getEntity(self): ('List', 'entity')
+</panel_attributes>
+        <additional_attributes/>
+    </element>
+    <element>
+        <id>Relation</id>
+        <coordinates>
+            <x>180</x>
+            <y>442</y>
+            <w>286</w>
+            <h>-182</h>
+        </coordinates>
+        <panel_attributes>lt=-&gt;
+Inherits from</panel_attributes>
+        <additional_attributes>20.0;20.0;286.0;-182.0</additional_attributes>
+    </element>
+    <element>
+        <id>Relation</id>
+        <coordinates>
+            <x>380</x>
+            <y>572</y>
+            <w>513</w>
+            <h>480</h>
+        </coordinates>
+        <panel_attributes>lt=-&gt;
+Function &lt;attack()&gt; Return Type</panel_attributes>
+        <additional_attributes>20.0;20.0;513.0;480.0</additional_attributes>
+    </element>
+    <element>
+        <id>Relation</id>
+        <coordinates>
+            <x>512</x>
+            <y>240</y>
+            <w>-46</w>
+            <h>682</h>
+        </coordinates>
+        <panel_attributes>lt=-&gt;
+Inherits from</panel_attributes>
+        <additional_attributes>20.0;20.0;-46.0;682.0</additional_attributes>
+    </element>
+    <element>
+        <id>Relation</id>
+        <coordinates>
+            <x>646</x>
+            <y>110</y>
+            <w>513</w>
+            <h>481</h>
+        </coordinates>
+        <panel_attributes>lt=-&gt;
+Attribute &lt;existence&gt; of type</panel_attributes>
+        <additional_attributes>20.0;20.0;513.0;481.0</additional_attributes>
+    </element>
+    <element>
+        <id>Relation</id>
+        <coordinates>
+            <x>978</x>
+            <y>240</y>
+            <w>-247</w>
+            <h>812</h>
+        </coordinates>
+        <panel_attributes>lt=-&gt;
+Function &lt;getEntity()&gt; Returns container List of Type</panel_attributes>
+        <additional_attributes>20.0;20.0;-247.0;812.0</additional_attributes>
+    </element>
+    <element>
+        <id>Relation</id>
+        <coordinates>
+            <x>1040</x>
+            <y>240</y>
+            <w>-309</w>
+            <h>854</h>
+        </coordinates>
+        <panel_attributes>lt=-&gt;
+
+
+
+
+Attribute &lt;myEntities&gt; container of type</panel_attributes>
+        <additional_attributes>20.0;20.0;-309.0;854.0</additional_attributes>
+    </element>
+</diagram>
