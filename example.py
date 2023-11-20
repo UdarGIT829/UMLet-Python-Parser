@@ -6,10 +6,10 @@ class Existence(Enum):
     INACTIVE = 2
     UNKNOWN = 3
 
-class action:
+class Action:
     pass
 
-class entity:
+class Entity:
     """
     The base class for anything with a health bar
     """
@@ -25,15 +25,7 @@ class entity:
     def setName(self, newName:str)->None:
         self.name = newName
 
-class creature(thing):
-    """
-    Based on thing, this will be any "thing" that can take actions
-    """
-    monster_type : str
-    def attack(self)->action:
-        print("Do attack")
-
-class thing(entity):
+class Thing(Entity):
     """
     Based on Entity, this will be any Entity that has mass, size, and composition
     """
@@ -43,15 +35,25 @@ class thing(entity):
     owner: str
     existence: Existence
 
-class location():
+class Creature(Thing):
+    """
+    Based on thing, this will be any "thing" that can take actions
+    """
+    monster_type : str
+    def attack(self)->Action:
+        print("Do attack")
+
+class anthony(Creature):
+    civilized: bool
+class Location():
     """
     This class will store data about a location, this includes a reference to all entities that are in it and what location they are at in 3 dimensions.
     """
     _location_info : str
     name           : str
-    myEntities     : List[entity]
+    myEntities     : List[Entity]
 
     def getIntersections()->List:
         return list()
-    def getEntity(self)->List[entity]:
+    def getEntity(self)->List[Entity]:
         return self.myEntities
