@@ -2,6 +2,8 @@ import ast
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 import math
+import sys
+import os.path
 
 def arrange_boxes(boxes, shape):
     """
@@ -470,7 +472,7 @@ def analyze_python_file(file_path):
     
     collector = ImportCollector()
     collector.visit(tree)
-    imported_modules = flatten_list(collector.imports)
+    imported_modules = collector.imports
 
     classes = [node for node in ast.walk(tree) if isinstance(node, ast.ClassDef)]
 
@@ -618,7 +620,7 @@ def create_xml_output(analysis_results, xmlPath, imported_modules=None):
         relationType = relation[2]
 
         # Get the nodes from the nodes dictionary
-        if destinNode in imported_modules:
+        if destinNode in flatten_list(imported_modules):
             pass
         else:
             node1 = nodeCoords[sourceNode]
@@ -734,17 +736,38 @@ def create_xml_output(analysis_results, xmlPath, imported_modules=None):
         return False
 
 
-def analyseFile(file_path, xmlPath):
-    analysis, importedModules = analyze_python_file(file_path)
-    result = create_xml_output(analysis, xmlPath, importedModules)
-
-    return result
-
 if __name__ == "__main__":
-    file_path = 'example.py'  # Replace with your file path
-    xmlPath = file_path.replace(".py",".uxf")
+    inputFilePaths = []
+    if len(sys.argv) == 1:
+        print("No input filepath.")
+        print(f"Using <example.py>")
+        file_path = "example.py"
+        inputFilePaths.append(file_path)
+    else:
+        for iterFilePath in sys.argv[1:]:     
+            if os.path.isfile(iterFilePath):
+                print(f"Using <{iterFilePath}> as file to analyse.")
+                inputFilePaths.append(iterFilePath)
+            else: 
+                print(f"File <{file_path}> does not exist.")
+                if len(inputFilePaths) == 0:
+                    print(f"Using <example.py>")
+                    file_path = "example.py"
+                    inputFilePaths.append(file_path)
+                    break
+    analysis = []
+    imported_modules = []
+    for iterFilePath in inputFilePaths:
+        xmlPath = iterFilePath.replace(".py",".uxf")
 
-    analysis = analyseFile(file_path, xmlPath)
+        thisAnalysis, thisImportedModules = analyze_python_file(iterFilePath)
+        analysis.extend(thisAnalysis)
+        imported_modules.extend(thisImportedModules)
+        result = create_xml_output(thisAnalysis, xmlPath, thisImportedModules)
+    
+    if len(inputFilePaths) > 1:
+        result = create_xml_output(analysis, "diagram.uxf", imported_modules)
+
     if analysis:
         print(f"Wrote to file: {xmlPath}")
     else:
